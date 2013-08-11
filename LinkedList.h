@@ -1,6 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include <stdio.h>
+#include <assert.h>
 
 struct ListNode {
     int val;
@@ -12,7 +13,7 @@ struct ListNode {
 inline ListNode* makeList(int *a, int size)
 {
     ListNode *next = NULL;
-    ListNode *curr;
+    ListNode *curr = NULL;
     for (int i = size - 1; i >= 0; i--) {
         curr = new ListNode(a[i]);
         curr->next = next;
