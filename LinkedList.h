@@ -2,6 +2,7 @@
 #define LINKEDLIST_H
 #include <stdio.h>
 #include <assert.h>
+#include <iostream>
 
 struct ListNode {
     int val;
@@ -20,6 +21,18 @@ inline ListNode* makeList(int *a, int size)
         next = curr;
     }
     return curr;
+}
+
+inline ListNode* readList()
+{
+    using std::cin;
+    int n;
+    cin >> n;
+    int a[n];
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    return makeList(a, n);
 }
 
 inline void printList(ListNode *head)
