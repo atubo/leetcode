@@ -15,13 +15,13 @@ struct PosInfo {
 class Solution {
 public:
     string minWindow(string S, string T) {
-        unordered_multiset<char> tSet;
-        unordered_multiset<char> unseen;
+        unordered_set<char> tSet;
+        unordered_set<char> tSetWaiting;
         unordered_map<char, int> numInT;
         unordered_map<char, int> numSeen;
         for (int i = 0; i < (int)T.length(); i++) {
             tSet.insert(T[i]);
-            unseen.insert(T[i]);
+            tSetWaiting.insert(T[i]);
             numInT[T[i]]++;
         }
 
@@ -31,10 +31,12 @@ public:
         for (; pos < n; pos++) {
             if (tSet.count(S[pos]) >= 1) {
                 dq.push_back(PosInfo(S[pos], pos));
-                unordered_multiset<char>::iterator it = unseen.find(S[pos]);
-                if (it != unseen.end()) unseen.erase(it);
                 numSeen[S[pos]]++;
-                if (unseen.empty()) break;
+                if (numSeen[S[pos]] >= numInT[S[pos]] &&
+                    tSetWaiting.count(S[pos]) >= 1) {
+                    tSetWaiting.erase(S[pos]);
+                }
+                if (tSetWaiting.empty()) break;
             }
         }
         if (pos == n) return string();
