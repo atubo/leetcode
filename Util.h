@@ -24,4 +24,23 @@ inline std::vector<int> getVector()
     return result;
 }
 
+inline std::vector<std::vector<int> > getMatrix()
+{
+    using std::cin;
+    using std::vector;
+
+    int m;
+    int n;
+    cin >> m >> n;
+    vector<vector<int> > matrix(m, vector<int>(n, 0));
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> matrix[i][j];
+        }
+    }
+
+    return matrix;
+}
+
+
 #endif
