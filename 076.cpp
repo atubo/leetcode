@@ -15,34 +15,43 @@ struct PosInfo {
 class Solution {
 public:
     string minWindow(string S, string T) {
-        unordered_set<char> tSet;
-        unordered_set<char> unseen;
-        unordered_map<char, int> lastPos;
+        unordered_multiset<char> tSet;
+        unordered_multiset<char> unseen;
+        unordered_map<char, int> numInT;
+        unordered_map<char, int> numSeen;
         for (int i = 0; i < (int)T.length(); i++) {
             tSet.insert(T[i]);
             unseen.insert(T[i]);
+            numInT[T[i]]++;
         }
 
         deque<PosInfo> dq;
         int n  = S.length();
         int pos = 0;
         for (; pos < n; pos++) {
-            if (tSet.count(S[pos]) == 1) {
+            if (tSet.count(S[pos]) >= 1) {
                 dq.push_back(PosInfo(S[pos], pos));
-                unseen.erase(S[pos]);
-                lastPos[S[pos]] = pos;
+                unordered_multiset<char>::iterator it = unseen.find(S[pos]);
+                if (it != unseen.end()) unseen.erase(it);
+                numSeen[S[pos]]++;
                 if (unseen.empty()) break;
             }
         }
         if (pos == n) return string();
 
+        while (numSeen[dq.front().c] > numInT[dq.front().c]) {
+            numSeen[dq.front().c]--;
+            dq.pop_front();
+        }
+
         int currLen = pos - dq.front().pos + 1;
         int currPos = pos;
         for (int i = pos + 1; i < n; i++) {
-            if (tSet.count(S[i]) == 1) {
+            if (tSet.count(S[i]) >= 1) {
                 dq.push_back(PosInfo(S[i], i));
-                lastPos[S[i]] = i;
-                while (dq.front().pos != lastPos[dq.front().c]) {
+                numSeen[S[i]]++;
+                while (numSeen[dq.front().c] > numInT[dq.front().c]) {
+                    numSeen[dq.front().c]--;
                     dq.pop_front();
                 }
                 int length = i - dq.front().pos + 1;
