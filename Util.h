@@ -15,6 +15,7 @@ inline void printVector(const std::vector<int>& v)
 inline std::vector<int> getVector()
 {
     using std::cin;
+    using std::vector;
     int n;
     cin >> n;
     vector<int> result(n);
