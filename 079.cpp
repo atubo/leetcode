@@ -17,37 +17,34 @@ public:
         if (board.size() == 0 || board[0].size() == 0) return false;
         m = board.size();
         n = board[0].size();
-        visited.resize(m, vector<bool>(n, false));
-        try {
-            for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (board[i][j] == word[0]) {
-                        visit(Cell(i,j), 0, board, word);
-                    }
+        vector<vector<bool> > visited(m, vector<bool>(n, false));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == word[0]) {
+                    if (visit(Cell(i,j), 0, board, word, visited)) return true;
                 }
             }
-        }
-        catch (int e) {
-            return true;
         }
         return false;
     }
 private:
-    void visit(const Cell& v, int depth,
+    bool visit(const Cell& v, int depth,
                const vector<vector<char> >& board,
-               const string& word) {
+               const string& word,
+               vector<vector<bool> >& visited) {
         visited[v.i][v.j] = true;
 
-        if (depth == (int)word.length() - 1) throw 1;
+        if (depth == (int)word.length() - 1) return true;
         vector<Cell> neighbors = getNeighbors(v);
         for (int i = 0; i < (int)neighbors.size(); i++) {
             Cell u = neighbors[i];
             if (!visited[u.i][u.j] && board[u.i][u.j] == word[depth+1]) {
-                visit(u, depth+1, board, word);
+                if (visit(u, depth+1, board, word, visited)) return true;
             }
         }
 
         visited[v.i][v.j] = false;
+        return false;
     }
     vector<Cell> getNeighbors(const Cell& v) {
         vector<Cell> result;
@@ -69,10 +66,9 @@ private:
     }
     int m;
     int n;
-    vector<vector<bool> > visited;
 };
 
-#if 1
+#if 0
 int main()
 {
     int m;
