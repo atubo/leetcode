@@ -43,5 +43,17 @@ inline std::vector<std::vector<int> > getMatrix()
     return matrix;
 }
 
+inline void printMatrix(const std::vector<std::vector<int> > &matrix)
+{
+    using std::cout;
+    using std::endl;
+
+    for (int i = 0; i < (int)matrix.size(); i++) {
+        for (int j = 0; j < (int)matrix[0].size(); j++) {
+            cout << matrix[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 
 #endif
