@@ -18,5 +18,17 @@ public class InputReader {
         int result = sc.nextInt();
         return result;
     }
+    
+    public ListNode readList() {
+        int n = sc.nextInt();
+        ListNode head = new ListNode(0);
+        ListNode curr = head;
+        for (int i = 0; i < n; i++) {
+            int x = sc.nextInt();
+            curr.next = new ListNode(x);
+            curr = curr.next;
+        }
+        return head.next;
+    }
 }
         
