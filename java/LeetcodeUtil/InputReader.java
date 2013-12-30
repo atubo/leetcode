@@ -5,6 +5,10 @@ import java.util.Scanner;
 public class InputReader {
     Scanner sc = new Scanner(System.in);
     
+    public String readString() {
+        return sc.next();
+    }
+    
     public int[] readArray() {
         int n = sc.nextInt();
         int[] result = new int[n];
