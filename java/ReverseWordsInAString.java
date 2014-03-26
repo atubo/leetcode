@@ -17,7 +17,6 @@ public class ReverseWordsInAString {
             p2++;
             while (p2 < sb.length() && sb.charAt(p2) == ' ') {
                 sb.deleteCharAt(p2);
-                p2++;
             }
             p1 = p2;
         }
