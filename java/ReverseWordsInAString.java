@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class ReverseWordsInAString {
+    // First reverse the whole string, then reverse each word
     public String reverseWords(String s) {
         StringBuilder sb = new StringBuilder(s);
         reverse(sb, 0, sb.length());
