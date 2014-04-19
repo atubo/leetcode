@@ -1,12 +1,17 @@
 import java.util.*;
 
 public class InterleavingString {
-    public static class Pair {
+    public static class Pair implements Comparable<Pair> {
         public int i;
         public int j;
         public Pair(int i, int j) {
             this.i = i;
             this.j = j;
+        }
+        public int compareTo(Pair other) {
+            if (i < other.i) return -1;
+            if (i > other.i) return 1;
+            return Integer.compare(j, other.j);
         }
     }
     public boolean isInterleave(String s1, String s2, String s3) {
@@ -15,7 +20,7 @@ public class InterleavingString {
         int N3 = s3.length();
         if (N1 == 0 && N2 == 0 && N3 == 0) return true;
         if (N1 + N2 != N3) return false;
-        LinkedList<Pair> queue = new LinkedList<>();
+        TreeSet<Pair> queue = new TreeSet<>();
         queue.add(new Pair(-1, -1));
         for (int i = 0; i < N3; i++) {
             char c = s3.charAt(i);
