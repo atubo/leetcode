@@ -9,7 +9,6 @@ public class Search2DMatrix {
         if (n == 0) return false;
         
         int row = findRow(matrix, target);
-        System.out.printf("row=%d\n", row);
         if (row >= 0 && row < m) {
             return isInRow(matrix[row], target);
         } else {
