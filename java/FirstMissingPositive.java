@@ -4,15 +4,15 @@ import java.util.*;
 public class FirstMissingPositive {
     public int firstMissingPositive(int[] a) {
         for (int i = 0; i < a.length; i++) {
-            while (a[i] < a.length && a[i] > 0 && a[a[i]] != a[i]) {
-                swap(a, i, a[i]);
+            while (a[i] <= a.length && a[i] > 0 && a[a[i]-1] != a[i]) {
+                swap(a, i, a[i]-1);
             }
         }
-        int pos = 1;
+        int pos = 0;
         for (; pos < a.length; pos++) {
-            if (a[pos] != pos) break;
+            if (a[pos] != pos+1) break;
         }
-        return pos;
+        return pos+1;
     }
     private void swap(int[] a, int i, int j) {
         int tmp = a[i];
