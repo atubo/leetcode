@@ -2,15 +2,6 @@ import LeetcodeUtil.*;
 import java.util.*;
 
 public class FourSum {
-    private static class Pair {
-        public int first;
-        public int second;
-        
-        public Pair(int first, int second) {
-            this.first = first;
-            this.second = second;
-        }
-    }
     
     private static class Quad implements Comparable<Quad> {
         public int a;
@@ -56,27 +47,20 @@ public class FourSum {
         int n = a.length;
         for (int i = 0; i < n-3; i++) {
             for (int j = i+1; j < n-2; j++) {
-                ArrayList<Pair> pairs = twoSum(a, j+1, target-a[i]-a[j]);
-                for (Pair p: pairs) {
-                    quads.add(new Quad(a[i], a[j], p.first, p.second));
+                int k1 = j+1;
+                int k2 = n-1;
+                while (k2 > k1) {
+                    int sum = a[i] + a[j] + a[k1] + a[k2];
+                    if (sum == target) {
+                        quads.add(new Quad(a[i], a[j], a[k1], a[k2]));
+                    }
+                    if (sum >= target) k2--;
+                    else k1++;
                 }
             }
         }
         for (Quad q: quads) {
             result.add(q.toList());
-        }
-        return result;
-    }
-    
-    private ArrayList<Pair> twoSum(int[] a, int start, int target) {
-        ArrayList<Pair> result = new ArrayList<>();
-        int n = a.length;
-        HashSet<Integer> seen = new HashSet<>();
-        for (int i = start; i < n; i++) {
-            if (seen.contains(target-a[i])) {
-                result.add(new Pair(target-a[i], a[i]));
-            }
-            seen.add(a[i]);
         }
         return result;
     }
