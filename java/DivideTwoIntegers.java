@@ -9,7 +9,7 @@ public class DivideTwoIntegers {
         return (sign == 1 ? result : -result);
     }
     
-    private int divideRecur(int a, int b) {
+    private int divideRecur(long a, long b) {
         if (a < b) return 0;
         int shift = 0;
         while (b << shift <= a) shift++;
