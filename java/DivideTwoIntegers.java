@@ -5,7 +5,7 @@ public class DivideTwoIntegers {
         if (a == 0) return 0;
         int sign = 1;
         if (a > 0 && b < 0 || a < 0 && b > 0) sign = -1;
-        int result = divideRecur(Math.abs(a), Math.abs(b));
+        int result = divideRecur(Math.abs((long)a), Math.abs((long)b));
         return (sign == 1 ? result : -result);
     }
     
