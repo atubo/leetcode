@@ -34,6 +34,7 @@ public class PermutationSequence {
     }
     
     private void rotate(int[] a, int start, int pivot) {
+        if (pivot < start) return;
         int tmp = a[pivot];
         for (int i = pivot; i > start; i--) {
             a[i] = a[i-1];
