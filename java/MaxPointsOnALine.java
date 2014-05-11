@@ -67,6 +67,10 @@ public class MaxPointsOnALine {
     private Slope getSlope(Point p1, Point p2) {
         int dx = p2.x - p1.x;
         int dy = p2.y - p1.y;
+        if (dx < 0) {
+            dx = -dx;
+            dy = -dy;
+        }
         if (dx == 0) return new Slope(0, 1);
         if (dy == 0) return new Slope(1, 0);
         int g = gcd(Math.abs(dx), Math.abs(dy));
