@@ -11,7 +11,8 @@ public class RotateList {
             tail = tail.next;
         }
         
-        if (k == 0 || k == n) return head;
+        k = k % n;
+        if (k == 0) return head;
         
         ListNode curr = head;
         for (int i = 1; i < n-k; i++) {
