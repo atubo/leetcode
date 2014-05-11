@@ -2,11 +2,13 @@ import java.util.*;
 
 public class LRUCache {
     public static class Node {
+        public int key;
         public int val;
         public Node prev;
         public Node next;
         
-        public Node(int val, Node prev, Node next) {
+        public Node(int key, int val, Node prev, Node next) {
+            this.key  = key;
             this.val  = val;
             this.prev = prev;
             this.next = next;
@@ -44,8 +46,8 @@ public class LRUCache {
             tail = prev;
         }
         
-        public void addFront(int val) {
-            Node node = new Node(val, null, head);
+        public void addFront(int key, int val) {
+            Node node = new Node(key, val, null, head);
             if (head != null) head.prev = node;
             head = node;
             if (tail == null) tail = node;
@@ -54,13 +56,13 @@ public class LRUCache {
         public void print() {
             Node node = head;
             while (node != null) {
-                System.out.printf("%d ", node.val);
+                System.out.printf("(%d %d) ", node.key, node.val);
                 node = node.next;
             }
             node = tail;
             System.out.printf("|");
             while (node != null) {
-                System.out.printf("%d ", node.val);
+                System.out.printf("(%d %d) ", node.key, node.val);
                 node = node.prev;
             }
             System.out.println();
@@ -93,10 +95,18 @@ public class LRUCache {
             if (size < capacity) {
                 size++;
             } else {
+                index.remove(list.tail.key);
                 list.removeTail();
             }
-            list.addFront(val);
+            list.addFront(key, val);
             index.put(key, list.head);
+        }
+    }
+    
+    public void printIndex() {
+        System.out.printf("index table\n");
+        for (Map.Entry<Integer, Node> entry : index.entrySet()) {
+            System.out.printf("key=%d val=%d\n", entry.getKey(), entry.getValue().val);
         }
     }
     
@@ -106,6 +116,8 @@ public class LRUCache {
         LRUCache cache = new LRUCache(capacity);
         int n = sc.nextInt();
         for (int i = 0; i < n; i++) {
+            System.out.printf("i=%d\n", i);
+            cache.printIndex();
             int op = sc.nextInt();
             if (op == 0) {
                 int key = sc.nextInt();
@@ -114,8 +126,8 @@ public class LRUCache {
                 int key = sc.nextInt();
                 int val = sc.nextInt();
                 cache.set(key, val);
-                cache.list.print();
             }
+            cache.list.print();
         }
     }
 }
