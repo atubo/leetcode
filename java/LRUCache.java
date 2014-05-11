@@ -46,8 +46,24 @@ public class LRUCache {
         
         public void addFront(int val) {
             Node node = new Node(val, null, head);
+            if (head != null) head.prev = node;
             head = node;
             if (tail == null) tail = node;
+        }
+             
+        public void print() {
+            Node node = head;
+            while (node != null) {
+                System.out.printf("%d ", node.val);
+                node = node.next;
+            }
+            node = tail;
+            System.out.printf("|");
+            while (node != null) {
+                System.out.printf("%d ", node.val);
+                node = node.prev;
+            }
+            System.out.println();
         }
     }
     
@@ -98,6 +114,7 @@ public class LRUCache {
                 int key = sc.nextInt();
                 int val = sc.nextInt();
                 cache.set(key, val);
+                cache.list.print();
             }
         }
     }
