@@ -48,6 +48,7 @@ public class MaxPointsOnALine {
                 }
                 table.put(slope, table.get(slope)+1);
             }
+            result = Math.max(result, coincident+1);
             for (Integer count: table.values()) {
                 result = Math.max(result, count + coincident);
             }
