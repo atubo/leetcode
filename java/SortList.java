@@ -13,7 +13,7 @@ public class SortList {
     }
     
     public ListNode sortList(ListNode head) {
-        if (head == null) return head;
+        if (head == null || head.next == null) return head;
         NodePair np = splitList(head);
         ListNode l1 = sortList(np.first);
         ListNode l2 = sortList(np.second);
