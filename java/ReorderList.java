@@ -25,7 +25,7 @@ public class ReorderList {
         ListNode fast = head;
         while (fast.next != null && fast.next.next != null) {
             slow = slow.next;
-            fast = fast.next;
+            fast = fast.next.next;
         }
         ListNode l2 = slow.next;
         slow.next = null;
